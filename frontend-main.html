@@ -7,7 +7,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;700&display=swap');
 
@@ -52,28 +51,13 @@
             0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
             50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
         }
-
-        #cart-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: #e11d48;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-rose-50 to-pink-100">
     <div class="canvas-container" id="three-container"></div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full p-4 backdrop-blur-lg bg-white/30 z-50">
+    <nav class="fixed w-full p-4 backdrop-blur-lg bg-white/30">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-2">
                 <svg class="w-10 h-10" viewBox="0 0 40 40">
@@ -82,50 +66,137 @@
                 </svg>
                 <span class="text-2xl font-bold text-pink-800">සෝස ලංකා</span>
             </div>
-            <div class="flex items-center space-x-6">
+            <div class="space-x-6">
                 <a href="#products" class="text-pink-900 hover:text-pink-600">නිෂ්පාදන</a>
                 <a href="#order" class="text-pink-900 hover:text-pink-600">ඇණවුම්</a>
                 <a href="#contact" class="text-pink-900 hover:text-pink-600">සම්බන්ධ වන්න</a>
-                <div class="relative cursor-pointer" onclick="toggleCart()">
-                    <svg class="w-6 h-6 text-pink-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                    </svg>
-                    <span id="cart-count" class="hidden">0</span>
-                </div>
             </div>
         </div>
     </nav>
-
-    <!-- Cart Sidebar -->
-    <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-80 bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out z-50">
-        <div class="p-4">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-lg font-bold text-pink-900">කාට්ටුව</h3>
-                <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-            <div id="cart-items" class="space-y-4"></div>
-            <div class="mt-4 border-t pt-4">
-                <div class="flex justify-between mb-2">
-                    <span>එකතුව:</span>
-                    <span id="cart-total">රු. 0.00</span>
-                </div>
-                <button onclick="showCheckout()" class="w-full bg-pink-600 text-white py-2 rounded-lg hover:bg-pink-700">
-                    ඇණවුම් කරන්න
-                </button>
-            </div>
-        </div>
-    </div>
 
     <!-- Hero Section -->
     <section class="min-h-screen flex items-center justify-center px-4">
         <div class="text-center">
             <h1 class="text-6xl font-bold text-pink-900 mb-6">සෝස ලංකා</h1>
             <p class="text-2xl text-pink-700 mb-8">අපගේ සුවිශේෂී ක්‍රීම් නිෂ්පාදන</p>
-            <a href="#products" class="bg-pink-600 text-white px-8 py-3 rounded-full hover:bg-pink-700 transition-all inline-block">
+            <button class="bg-pink-600 text-white px-8 py-3 rounded-full hover:bg-pink-700 transition-all">
                 දැන් ඇණවුම් කරන්න
-            </a>
+            </button>
         </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-20 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center text-pink-900 mb-12">අපගේ නිෂ්පාදන</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Product Card 1 -->
+                <div class="product-card rounded-xl p-6">
+                    <div class="cream-blob w-32 h-32 mx-auto bg-gradient-to-r from-pink-300 to-rose-300"></div>
+                    <h3 class="text-xl font-bold text-pink-900 mt-4">සුවඳ ක්‍රීම්</h3>
+                    <p class="text-pink-700 mt-2">විශේෂ සුවඳ සහිත ක්‍රීම්</p>
+                    <button class="mt-4 bg-pink-600 text-white px-6 py-2 rounded-full hover:bg-pink-700">
+                        රු. 1500
+                    </button>
+                </div>
+                <!-- Add more product cards here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form -->
+    <section id="order" class="py-20 px-4 bg-white/30 backdrop-blur-lg">
+        <div class="container mx-auto max-w-2xl">
+            <h2 class="text-4xl font-bold text-center text-pink-900 mb-12">ඇණවුම් කරන්න</h2>
+            <form class="space-y-6">
+                <div>
+                    <label class="block text-pink-900 mb-2">නම</label>
+                    <input type="text" class="w-full p-3 rounded-lg bg-white/50 border border-pink-200 focus:border-pink-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-pink-900 mb-2">දුරකථන අංකය</label>
+                    <input type="tel" class="w-full p-3 rounded-lg bg-white/50 border border-pink-200 focus:border-pink-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-pink-900 mb-2">ලිපිනය</label>
+                    <textarea class="w-full p-3 rounded-lg bg-white/50 border border-pink-200 focus:border-pink-500 outline-none" rows="3"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-pink-600 text-white py-3 rounded-lg hover:bg-pink-700 transition-all">
+                    ඇණවුම් කරන්න
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // Three.js Animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('three-container').appendChild(renderer.domElement);
+
+        // Create floating cream drops
+        const geometry = new THREE.SphereGeometry(1, 32, 32);
+        const material = new THREE.MeshPhongMaterial({
+            color: 0xffd6e0,
+            transparent: true,
+            opacity: 0.6,
+            shininess: 100
+        });
+
+        const drops = [];
+        for (let i = 0; i < 20; i++) {
+            const drop = new THREE.Mesh(geometry, material);
+            drop.position.x = Math.random() * 40 - 20;
+            drop.position.y = Math.random() * 40 - 20;
+            drop.position.z = Math.random() * 40 - 20;
+            drops.push(drop);
+            scene.add(drop);
+        }
+
+        // Add lights
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+
+        const pointLight = new THREE.PointLight(0xffffff, 1);
+        pointLight.position.set(10, 10, 10);
+        scene.add(pointLight);
+
+        camera.position.z = 30;
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            drops.forEach((drop, index) => {
+                drop.rotation.x += 0.01;
+                drop.rotation.y += 0.01;
+                drop.position.y = Math.sin(Date.now() * 0.001 + index) * 2;
+            });
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth - 0.5;
+            const mouseY = e.clientY / window.innerHeight - 0.5;
+
+            gsap.to(scene.rotation, {
+                x: mouseY * 0.5,
+                y: mouseX * 0.5,
+                duration: 1
+            });
+        });
+    </script>
+</body>
+</html>
