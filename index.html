@@ -137,16 +137,6 @@
         <div class="container mx-auto">
             <h2 class="text-4xl font-bold text-pink-900 text-center mb-12">අපගේ නිෂ්පාදන</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Product Card 1 -->
-                <div class="product-card rounded-xl p-6">
-                    <div class="cream-blob w-32 h-32 mx-auto bg-gradient-to-r from-pink-300 to-rose-300"></div>
-                    <h3 class="text-xl font-bold text-pink-900 mt-4">සුවඳ ක්‍රීම්</h3>
-                    <p class="text-pink-700 mt-2">විශේෂ සුවඳ සහිත ක්‍රීම්</p>
-                    <button class="mt-4 bg-pink-600 text-white px-6 py-2 rounded-full hover:bg-pink-700">
-                        රු. 1500
-                    </button>
-                </div>
-                <!-- Add more product cards here -->
                 <!-- Product Cards will be dynamically added here -->
             </div>
         </div>
@@ -552,7 +542,7 @@
                 renderer.dispose();
             }
         });
-        
+
         // Three.js Animation
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
