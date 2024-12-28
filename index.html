@@ -346,7 +346,7 @@
 
             const blobs = [];
             for (let i = 0; i < 5; i++) {
-                 blob = new THREE.Mesh(geometry, material);
+                const blob = new THREE.Mesh(geometry, material);
                 blob.position.set(
                     Math.random() * 10 - 5,
                     Math.random() * 10 - 5,
