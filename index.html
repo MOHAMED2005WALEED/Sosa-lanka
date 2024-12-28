@@ -273,51 +273,51 @@
         }
 
         function renderCartItems() {
-    const cartItems = document.getElementById('cart-items');
-    cartItems.innerHTML = cart.map(item => `
-        <div class="flex justify-between items-center">
-            <div>
-                <h4 class="font-bold">${item.name}</h4>
-                <p>රු. ${item.price.toFixed(2)} x ${item.quantity}</p>
-            </div>
-            <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                </svg>
-            </button>
-        </div>
-    `).join('');
-}
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = cart.map(item => `
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h4 class="font-bold">${item.name}</h4>
+                        <p>රු. ${item.price.toFixed(2)} x ${item.quantity}</p>
+                    </div>
+                    <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            `).join('');
+        }
 
-function showCheckout() {
-    if (cart.length === 0) {
-        alert('කරුණාකර භාණ්ඩ තෝරන්න');
-        return;
-    }
-    // Implement checkout logic here
-    alert('ඇණවුම සාර්ථකයි!');
-    cart = [];
-    updateCartCount();
-    updateCartTotal();
-    renderCartItems();
-    toggleCart();
-}
+        function showCheckout() {
+            if (cart.length === 0) {
+                alert('කරුණාකර භාණ්ඩ තෝරන්න');
+                return;
+            }
+            // Implement checkout logic here
+            alert('ඇණවුම සාර්ථකයි!');
+            cart = [];
+            updateCartCount();
+            updateCartTotal();
+            renderCartItems();
+            toggleCart();
+        }
 
-// Render products
-function renderProducts() {
-    const productsContainer = document.querySelector('#products .grid');
-    productsContainer.innerHTML = products.map(product => `
-        <div class="product-card rounded-lg p-6 text-center">
-            <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded-lg mb-4">
-            <h3 class="text-xl font-bold text-pink-900 mb-2">${product.name}</h3>
-            <p class="text-pink-700 mb-4">${product.description}</p>
-            <p class="text-lg font-bold text-pink-900 mb-4">රු. ${product.price.toFixed(2)}</p>
-            <button onclick="addToCart(${product.id})" class="bg-pink-600 text-white px-6 py-2 rounded-full hover:bg-pink-700">
-                කාට්ටුවට එක් කරන්න
-            </button>
-        </div>
-    `).join('');
-}
+        // Render products
+        function renderProducts() {
+            const productsContainer = document.querySelector('#products .grid');
+            productsContainer.innerHTML = products.map(product => `
+                <div class="product-card rounded-lg p-6 text-center">
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-bold text-pink-900 mb-2">${product.name}</h3>
+                    <p class="text-pink-700 mb-4">${product.description}</p>
+                    <p class="text-lg font-bold text-pink-900 mb-4">රු. ${product.price.toFixed(2)}</p>
+                    <button onclick="addToCart(${product.id})" class="bg-pink-600 text-white px-6 py-2 rounded-full hover:bg-pink-700">
+                        කාට්ටුවට එක් කරන්න
+                    </button>
+                </div>
+            `).join('');
+        }
 
         // Three.js Animation
         const scene = new THREE.Scene();
@@ -326,96 +326,96 @@ function renderProducts() {
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.getElementById('three-container').appendChild(renderer.domElement);
 
-// Three.js background animation
-function initThreeJS() {
-    const container = document.getElementById('three-container');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        // Three.js background animation
+        function initThreeJS() {
+            const container = document.getElementById('three-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    container.appendChild(renderer.domElement);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
 
-    // Create animated blobs
-    const geometry = new THREE.SphereGeometry(1, 32, 32);
-    const material = new THREE.MeshBasicMaterial({
-        color: 0xfdf2f8,
-        transparent: true,
-        opacity: 0.3
-    });
+            // Create animated blobs
+            const geometry = new THREE.SphereGeometry(1, 32, 32);
+            const material = new THREE.MeshBasicMaterial({
+                color: 0xfdf2f8,
+                transparent: true,
+                opacity: 0.3
+            });
 
-    const blobs = [];
-    for (let i = 0; i < 5; i++) {
-        const blob = new THREE.Mesh(geometry, material);
-        blob.position.set(
-            Math.random() * 10 - 5,
-            Math.random() * 10 - 5,
-            Math.random() * 10 - 15
-        );
-        blob.scale.set(
-            Math.random() * 2 + 1,
-            Math.random() * 2 + 1,
-            Math.random() * 2 + 1
-        );
-        scene.add(blob);
-        blobs.push(blob);
-    }
+            const blobs = [];
+            for (let i = 0; i < 5; i++) {
+                 blob = new THREE.Mesh(geometry, material);
+                blob.position.set(
+                    Math.random() * 10 - 5,
+                    Math.random() * 10 - 5,
+                    Math.random() * 10 - 15
+                );
+                blob.scale.set(
+                    Math.random() * 2 + 1,
+                    Math.random() * 2 + 1,
+                    Math.random() * 2 + 1
+                );
+                scene.add(blob);
+                blobs.push(blob);
+            }
 
-    camera.position.z = 5;
+            camera.position.z = 5;
 
-    function animate() {
-        requestAnimationFrame(animate);
+            function animate() {
+                requestAnimationFrame(animate);
 
-        blobs.forEach((blob, index) => {
-            blob.rotation.x += 0.001 + index * 0.0002;
-            blob.rotation.y += 0.002 + index * 0.0001;
+                blobs.forEach((blob, index) => {
+                    blob.rotation.x += 0.001 + index * 0.0002;
+                    blob.rotation.y += 0.002 + index * 0.0001;
             
-            // Floating animation
-            blob.position.y += Math.sin(Date.now() * 0.001 + index) * 0.002;
-        });
+                    // Floating animation
+                    blob.position.y += Math.sin(Date.now() * 0.001 + index) * 0.002;
+                });
 
-        renderer.render(scene, camera);
-    }
+                renderer.render(scene, camera);
+            }
 
-    // Handle window resize
-    window.addEventListener('resize', () => {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                const width = window.innerWidth;
+                const height = window.innerHeight;
 
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
 
-        renderer.setSize(width, height);
-    });
+                renderer.setSize(width, height);
+            });
 
-    animate();
-}
+            animate();
+        }
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    renderProducts();
-    initThreeJS();
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            initThreeJS();
 
-    // Handle contact form submission
-    document.getElementById('contact-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        alert('පණිවිඩය සාර්ථකව යවා ඇත!');
-        e.target.reset();
-    });
+            // Handle contact form submission
+            document.getElementById('contact-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('පණිවිඩය සාර්ථකව යවා ඇත!');
+                e.target.reset();
+            });
 
-    // Add scroll animation
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('nav a');
+            // Add scroll animation
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
 
-    // Smooth scroll for navigation links
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            targetSection.scrollIntoView({ behavior: 'smooth' });
-        });
-    });
+            // Smooth scroll for navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
 
     // Intersection Observer for scroll animations
     const observer = new IntersectionObserver((entries) => {
