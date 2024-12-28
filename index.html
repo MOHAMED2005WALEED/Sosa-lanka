@@ -8,6 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="server.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;700&display=swap');
 
@@ -319,13 +320,6 @@
             `).join('');
         }
 
-        // Three.js Animation
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('three-container').appendChild(renderer.domElement);
-
         // Three.js background animation
         function initThreeJS() {
             const container = document.getElementById('three-container');
@@ -417,143 +411,216 @@
                 });
             });
 
-    // Intersection Observer for scroll animations
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-fade-in');
-                observer.unobserve(entry.target);
+            // Intersection Observer for scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                section.classList.add('opacity-0');
+                observer.observe(section);
+            });
+
+            // Add parallax effect to product cards
+            const productCards = document.querySelectorAll('.product-card');
+            window.addEventListener('mousemove', (e) => {
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+
+                productCards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const cardX = rect.left + rect.width / 2;
+                    const cardY = rect.top + rect.height / 2;
+
+                    const angleX = (mouseY - cardY) / 30;
+                    const angleY = (mouseX - cardX) / -30;
+
+                    card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateZ(10px)`;
+                });
+            });
+
+            // Reset card rotation when mouse leaves
+            window.addEventListener('mouseleave', () => {
+                productCards.forEach(card => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+                });
+            });
+
+            // Add floating animation to hero section
+            const heroSection = document.querySelector('section:first-of-type');
+            let floatY = 0;
+    
+            function animateHero() {
+                floatY += 0.02;
+                heroSection.style.transform = `translateY(${Math.sin(floatY) * 10}px)`;
+                requestAnimationFrame(animateHero);
+            }
+    
+            animateHero();
+
+            // Handle mobile menu
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Add loading animation
+            window.addEventListener('load', () => {
+                document.body.classList.add('loaded');
+            });
+
+            // Initialize AOS (Animate on Scroll) if available
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    duration: 1000,
+                    once: true,
+                    offset: 100
+                });
             }
         });
-    }, { threshold: 0.1 });
-
-    sections.forEach(section => {
-        section.classList.add('opacity-0');
-        observer.observe(section);
-    });
-
-    // Add parallax effect to product cards
-    const productCards = document.querySelectorAll('.product-card');
-    window.addEventListener('mousemove', (e) => {
-        const mouseX = e.clientX;
-        const mouseY = e.clientY;
-
-        productCards.forEach(card => {
-            const rect = card.getBoundingClientRect();
-            const cardX = rect.left + rect.width / 2;
-            const cardY = rect.top + rect.height / 2;
-
-            const angleX = (mouseY - cardY) / 30;
-            const angleY = (mouseX - cardX) / -30;
-
-            card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateZ(10px)`;
-        });
-    });
-
-    // Reset card rotation when mouse leaves
-    window.addEventListener('mouseleave', () => {
-        productCards.forEach(card => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-        });
-    });
-
-    // Add floating animation to hero section
-    const heroSection = document.querySelector('section:first-of-type');
-    let floatY = 0;
-    
-    function animateHero() {
-        floatY += 0.02;
-        heroSection.style.transform = `translateY(${Math.sin(floatY) * 10}px)`;
-        requestAnimationFrame(animateHero);
-    }
-    
-    animateHero();
-
-    // Handle mobile menu
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const mobileMenu = document.querySelector('.mobile-menu');
-
-    if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    }
-
-    // Add loading animation
-    window.addEventListener('load', () => {
-        document.body.classList.add('loaded');
-    });
-
-    // Initialize AOS (Animate on Scroll) if available
-    if (typeof AOS !== 'undefined') {
-        AOS.init({
-            duration: 1000,
-            once: true,
-            offset: 100
-        });
-    }
-});
 
         // Add custom animation class
         const styles = document.createElement('style');
         styles.textContent = `
-    .animate-fade-in {
-        animation: fadeIn 1s ease-out forwards;
-    }
+            .animate-fade-in {
+                animation: fadeIn 1s ease-out forwards;
+            }
 
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
 
-    .loaded section {
-        transition: transform 0.5s ease-out;
-    }
-`;
+            .loaded section {
+                transition: transform 0.5s ease-out;
+            }
+        `;
+
         document.head.appendChild(styles);
 
         // Utility functions for animations
         function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
 
         // Handle loading performance
         window.addEventListener('load', () => {
-    // Add page transition effect
-    document.body.classList.remove('loading');
-    document.body.classList.add('loaded');
+            // Add page transition effect
+            document.body.classList.remove('loading');
+            document.body.classList.add('loaded');
     
-    // Preload images for better performance
-    products.forEach(product => {
-        const img = new Image();
-        img.src = product.image;
-    });
-});
+            // Preload images for better performance
+            products.forEach(product => {
+                const img = new Image();
+                img.src = product.image;
+            });
+        });
 
         // Handle errors gracefully
         window.addEventListener('error', (e) => {
-    console.error('Application Error:', e.message);
-    // You could add error reporting or user notification here
-});
+            console.error('Application Error:', e.message);
+            // You could add error reporting or user notification here
+        });
 
         // Clean up resources when leaving the page
         window.addEventListener('beforeunload', () => {
-    // Clean up Three.js resources if needed
-    if (typeof renderer !== 'undefined') {
-        renderer.dispose();
-    }
-});
+            // Clean up Three.js resources if needed
+            if (typeof renderer !== 'undefined') {
+                renderer.dispose();
+            }
+        });
+        
+        // Three.js Animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('three-container').appendChild(renderer.domElement);
+
+        // Create floating cream drops
+        const geometry = new THREE.SphereGeometry(1, 32, 32);
+        const material = new THREE.MeshPhongMaterial({
+            color: 0xffd6e0,
+            transparent: true,
+            opacity: 0.6,
+            shininess: 100
+        });
+
+        const drops = [];
+        for (let i = 0; i < 20; i++) {
+            const drop = new THREE.Mesh(geometry, material);
+            drop.position.x = Math.random() * 40 - 20;
+            drop.position.y = Math.random() * 40 - 20;
+            drop.position.z = Math.random() * 40 - 20;
+            drops.push(drop);
+            scene.add(drop);
+        }
+
+        // Add lights
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+
+        const pointLight = new THREE.PointLight(0xffffff, 1);
+        pointLight.position.set(10, 10, 10);
+        scene.add(pointLight);
+
+        camera.position.z = 30;
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            drops.forEach((drop, index) => {
+                drop.rotation.x += 0.01;
+                drop.rotation.y += 0.01;
+                drop.position.y = Math.sin(Date.now() * 0.001 + index) * 2;
+            });
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth - 0.5;
+            const mouseY = e.clientY / window.innerHeight - 0.5;
+
+            gsap.to(scene.rotation, {
+                x: mouseY * 0.5,
+                y: mouseX * 0.5,
+                duration: 1
+            });
+        });
+    </script>
+</body>
+</html>
