@@ -494,9 +494,9 @@
     }
 });
 
-// Add custom animation class
-const styles = document.createElement('style');
-styles.textContent = `
+        // Add custom animation class
+        const styles = document.createElement('style');
+        styles.textContent = `
     .animate-fade-in {
         animation: fadeIn 1s ease-out forwards;
     }
@@ -516,10 +516,10 @@ styles.textContent = `
         transition: transform 0.5s ease-out;
     }
 `;
-document.head.appendChild(styles);
+        document.head.appendChild(styles);
 
-// Utility functions for animations
-function debounce(func, wait) {
+        // Utility functions for animations
+        function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
         const later = () => {
@@ -531,8 +531,8 @@ function debounce(func, wait) {
     };
 }
 
-// Handle loading performance
-window.addEventListener('load', () => {
+        // Handle loading performance
+        window.addEventListener('load', () => {
     // Add page transition effect
     document.body.classList.remove('loading');
     document.body.classList.add('loaded');
@@ -544,14 +544,14 @@ window.addEventListener('load', () => {
     });
 });
 
-// Handle errors gracefully
-window.addEventListener('error', (e) => {
+        // Handle errors gracefully
+        window.addEventListener('error', (e) => {
     console.error('Application Error:', e.message);
     // You could add error reporting or user notification here
 });
 
-// Clean up resources when leaving the page
-window.addEventListener('beforeunload', () => {
+        // Clean up resources when leaving the page
+        window.addEventListener('beforeunload', () => {
     // Clean up Three.js resources if needed
     if (typeof renderer !== 'undefined') {
         renderer.dispose();
