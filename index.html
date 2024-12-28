@@ -136,6 +136,16 @@
         <div class="container mx-auto">
             <h2 class="text-4xl font-bold text-pink-900 text-center mb-12">අපගේ නිෂ්පාදන</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Product Card 1 -->
+                <div class="product-card rounded-xl p-6">
+                    <div class="cream-blob w-32 h-32 mx-auto bg-gradient-to-r from-pink-300 to-rose-300"></div>
+                    <h3 class="text-xl font-bold text-pink-900 mt-4">සුවඳ ක්‍රීම්</h3>
+                    <p class="text-pink-700 mt-2">විශේෂ සුවඳ සහිත ක්‍රීම්</p>
+                    <button class="mt-4 bg-pink-600 text-white px-6 py-2 rounded-full hover:bg-pink-700">
+                        රු. 1500
+                    </button>
+                </div>
+                <!-- Add more product cards here -->
                 <!-- Product Cards will be dynamically added here -->
             </div>
         </div>
@@ -173,16 +183,16 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
                     <h3 class="text-xl font-bold mb-4">සෝස ලංකා</h3>
-                    <p>අංක 123, මාර උයන,<br>කොළඹ 05</p>
+                    <p>අංක 125/16ඒ, එච්.කේ. එඩ්මන් මාවත,<br>මිලිදුව, ගාල්ල.</p>
                 </div>
                 <div>
                     <h3 class="text-xl font-bold mb-4">සම්බන්ධ වන්න</h3>
-                    <p>දුරකථන: 011-1234567<br>විද්‍යුත් තැපෑල: info@saucelanka.lk</p>
+                    <p>දුරකථන: 077-6284964<br>විද්‍යුත් තැපෑල: sosalanka@gmail.com</p>
                 </div>
                 <div>
                     <h3 class="text-xl font-bold mb-4">අපව අනුගමනය කරන්න</h3>
                     <div class="flex space-x-4">
-                        <a href="#" class="hover:text-pink-300">Facebook</a>
+                        <a href="https://www.facebook.com/profile.php?id=61571342452577&mibextid=ZbWKwL" class="hover:text-pink-300">Facebook</a>
                         <a href="#" class="hover:text-pink-300">Instagram</a>
                         <a href="#" class="hover:text-pink-300">Twitter</a>
                     </div>
@@ -308,6 +318,13 @@ function renderProducts() {
         </div>
     `).join('');
 }
+
+        // Three.js Animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('three-container').appendChild(renderer.domElement);
 
 // Three.js background animation
 function initThreeJS() {
